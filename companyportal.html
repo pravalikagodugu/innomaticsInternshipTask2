@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .employee-list, .employee-details, .map-section {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Employee Registration Form</h1>
+
+        <!-- Employee Registration Form -->
+        <form id="employee-form">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="department">Department:</label>
+            <select id="department" name="department" required>
+                <option value="">Select Department</option>
+                <option value="HR">HR</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+            </select>
+
+            <label for="emp-id">Employee ID:</label>
+            <input type="number" id="emp-id" name="emp-id" required>
+
+            <label for="profile-pic">Profile Picture URL:</label>
+            <input type="url" id="profile-pic" name="profile-pic">
+
+            <button type="submit">Register Employee</button>
+        </form>
+
+        <!-- Employee List Section -->
+        <div class="employee-list">
+            <h2>Employee List</h2>
+            <ol id="employee-list">
+                <!-- Dynamically added employees will appear here -->
+            </ol>
+        </div>
+
+        <!-- Employee Details Table -->
+        <div class="employee-details">
+            <h2>Employee Details</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Employee ID</th>
+                        <th>Department</th>
+                        <th>Profile Picture</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-details">
+                    <!-- Employee details will appear here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Embedded Map Section -->
+        <div class="map-section">
+            <h2>Company Location</h2>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.3095046144217!2d144.95783271530255!3d-37.81827117975161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f8d9a89%3A0x8bf58be2ef189aa1!2sFederation%20Square%2C%20Melbourne%20VIC%203000%2C%20Australia!5e0!3m2!1sen!2sin!4v1614241234567!5m2!1sen!2sin" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+    <script>
+        // Handle form submission
+        const form = document.getElementById('employee-form');
+        const employeeList = document.getElementById('employee-list');
+        const employeeDetails = document.getElementById('employee-details');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const department = document.getElementById('department').value;
+            const empId = document.getElementById('emp-id').value;
+            const profilePic = document.getElementById('profile-pic').value;
+
+            // Add employee to the list
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<a href="#">${name} (${email})</a>`;
+            employeeList.appendChild(listItem);
+
+            // Add employee details to the table
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${name}</td>
+                <td>${empId}</td>
+                <td>${department}</td>
+                <td><img src="${profilePic}" alt="${name}'s profile" width="50" height="50"></td>
+            `;
+            employeeDetails.appendChild(row);
+
+            // Reset form fields
+            form.reset();
+        });
+    </script>
+</body>
+</html>
